@@ -18,6 +18,7 @@ public class DoWhile02 {
 			
 			menu = scan.nextInt(); // 메뉴 입력받기
 			
+			
 			switch(menu) {
 			case 1:
 				// 저장하기 기능 구현

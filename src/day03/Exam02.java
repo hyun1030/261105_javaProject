@@ -13,38 +13,54 @@ public class Exam02 {
 		// 기준에 넘어간 데이터는 다시 입력하라고 요청
 		// 생년이 유효하지 않습니다. 다시 입력해주세요 (1900~2026) > 
 		
+		// 한 가족 (5명)의 입장료 
+		// 반복적인 생년을 입력받고 싶음 => 종료 키워드  0
+		// 종료키워드를 입력해서 반복이 종료되면 최종 결제 금액 출력
 		
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("연도를 입력해주세요 > ");
+		int sum = 0;
 		
-		int age = scan.nextInt();
-				
-		while(true) {
-			if(age >= 1900 && age <= 2026) {
-				System.out.println("정상 입력");
-				break;
-			} else {
-				System.out.println("이외의 연도는 유효하지 않은 연도 입니다.");
-				age = scan.nextInt();
-			}
-				
-		}
-		
-		int age2 = 2026 - age;
-		
-		if(age2 <= 13) {
-			System.out.println("어린이입니다. 요금 5000원");
-		} else if (age2 <=19){
-			System.out.println("청소년입니다. 요금 7000원");
-		} else {
-			System.out.println("성인입니다. 요금 10000원");
+		while (true){
+			System.out.println("연도를 입력해주세요 (0 종료)> ");
 			
+			int age = scan.nextInt();
+			
+			if (age==0) {
+				System.out.println("종료합니다.");
+				break;
+			}
+			
+			int today = 2026;
+				
+			while(true) {
+				if(age >= 1900 && age <= 2026) {
+					System.out.println("정상 입력");
+					break;
+				} else {
+					System.out.println("이외의 연도는 유효하지 않은 연도 입니다.");
+					System.out.println("다시 입력해주세요 >");
+					age = scan.nextInt();
+				}
+					
+			}
+		
+			int age2 = 2026 - age;
+			
+			if(age2 <= 13) {
+				System.out.println("어린이입니다. 요금 5000원");
+				sum= sum+5000; // sum +=5000;
+			} else if (age2 <=19){
+				System.out.println("청소년입니다. 요금 7000원");
+				sum= sum+7000;
+			} else {
+				System.out.println("성인입니다. 요금 10000원");
+				sum= sum+10000;
+			}
+		
 		}
 		
-		
-		
-		
+		System.out.println("총 요금 : "+sum);
 	
 		
 		
