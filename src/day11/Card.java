@@ -30,7 +30,7 @@ public class Card {
 		case 11: System.out.print("J "); break;
 		case 12: System.out.print("Q "); break;
 		case 13: System.out.print("K "); break;
-		default: System.out.print(num );
+		default: System.out.print(num);
 		}
 	}
 	

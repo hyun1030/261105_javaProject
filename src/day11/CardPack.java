@@ -17,17 +17,19 @@ public class CardPack {
 	 * 
 	 * */
 	private Card[] pack = new Card[52]; // 초기값 null
-	int packIndex = 0;
-	String shape[] = {"♥", "◆", "♣", "♠"};
+	private int packIndex = 0;
+	
 	
 	//생성자
 	public CardPack() {
+		String shape[] = {"♥", "◆", "♣", "♠"};
+		// i = shape 번지 / j => 숫자 1~13
 		for(int i=0; i<shape.length; i++) {
 			for(int j=1; j<=13; j++ ) {
-				Card c1 = new Card();
-				c1.setShape(shape[i]);
-				c1.setNum(j);
-				pack[packIndex] = c1;
+				Card c = new Card();
+				c.setShape(shape[i]);
+				c.setNum(j);
+				pack[packIndex] = c;
 				packIndex++;
 			}
 			
@@ -35,34 +37,38 @@ public class CardPack {
 		
 	}
 	
+	// 카드 섞는 메서드 => 배열 안의 값을 랜덤으로 자리 바꾸기
 	public void CardMix() {
 		
 		for(int i=0; i<pack.length; i++) {
-			int index = (int)(Math.random()*pack.length);
-			Card t = pack[i];
-			pack[i] = pack[index];
-			pack[index] = t;
+			int random = (int)(Math.random()*pack.length); // 교환할 랜덤 번지
+			// 교환
+			Card tmp = pack[i];
+			pack[i] = pack[random];
+			pack[random] = tmp;
 		}
-		//System.out.println(Arrays.toString(pack));
 		
 		
 	}
 	
-	public Card CardPick() {
+	// 플레이어에게 한장씩 나눠주는 기능
+	// pack 배열에 가장 끝 번지의 카드 1장을 리턴
+	// 리턴타입 : 카드 1장 => Card	
+	public Card pick() {
+		if(packIndex==0) {
+			return null;
+		}
 	    packIndex--;
-	    Card c = pack[packIndex];
-	    return c;
+	    return pack[packIndex];
+	    
 	}
 
-	
-
-	//카드회수
-	public void CardReset() {
+	// 카드를 초기화 기능 (나눠준 카드 회수)
+	// index를 원래대로 회복 =>52
+	public void init() {
 	    packIndex = 52;
+	    CardMix(); // 다시 섞기
 	}
-	
-	
-	
 
 	public Card[] getPack() {
 		return pack;
@@ -80,21 +86,12 @@ public class CardPack {
 		this.packIndex = packIndex;
 	}
 
-	public String[] getShape() {
-		return shape;
-	}
-
-	public void setShape(String[] shape) {
-		this.shape = shape;
-	}
-
 	@Override
 	public String toString() {
-		return "CardPack [pack=" + Arrays.toString(pack) + ", packIndex=" + packIndex + ", shape="
-				+ Arrays.toString(shape) + "]";
+		return "[" + Arrays.toString(pack) + "] / packIndex :" +packIndex ;
 	}
 	
+}
 	
 
-
-}
+	
