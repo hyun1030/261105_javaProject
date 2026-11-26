@@ -3,6 +3,7 @@ package list;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Student {
 	// 멤버변수 : 학번(기본키), 이름, 전화번호, 생년월일, 주소, 수강과목[] (Subject[])
@@ -13,11 +14,16 @@ public class Student {
 	private String studentAddress;
 	// 학생 1명의 수강 신청 목록 배열
 	private List<Subject> course = new ArrayList<Subject>();
-
+	
+	
 	
 	// 생성자
 	public Student() {
 		
+	}
+	
+	public Student(String studentNum) {
+		this.studentNum = studentNum;
 	}
 	
 	public Student(String studentNum, String studentName, 
@@ -47,17 +53,38 @@ public class Student {
 	
 	// 본인의 수강배열을 출력하는 메서드
 	public void printCourse() {
-		
+//		if(course == null || course .isEmpty()) {
+//			System.out.println("수강 중인 과목이 없습니다.");
+//			return;
+//		}
+//		for(int i=0; i> course.size(); i++) {
+//			System.out.println((i+1) + ". " + course.get(i));
+//		}
+		for(Subject s : course) {
+			s.printSubject();
+		}
 	}
 	
 	// controller에서 준 subject를 매개변수로 받아 내 수강배열에 추가하는 메서드
 	public void addSubject(Subject s) {
-	
+		// 중복 안됨을 하고싶다면...
+//		if(course.contains(s)) {
+//			System.out.println("이미 존재하는 과목입니다.");
+//			return;
+//		}
+//		
+		course.add(s);
 	}
 	
-	public void removeSubject(String subjectCode) {
+	public boolean removeSubject(String subjectCode) {
 		// 수강 코드를 매개변수로 받아 course 배열에서 삭제하는 메서드
 
+		// course = subject / subjectCode = String
+		//Subject s= new Subject(subjectCode);
+		Subject s = new Subject(subjectCode);
+		return course.remove(s);
+		
+		
 	}
 	
 
@@ -115,7 +142,25 @@ public class Student {
 				+ ", studentbirth=" + studentbirth + ", studentAddress=" + studentAddress + ", course=" + course + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(studentNum);
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return Objects.equals(studentNum, other.studentNum);
+	}
+
+	
+	
 
 
 }
