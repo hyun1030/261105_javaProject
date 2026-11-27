@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Product<K, V extends Number> {
 
-	private K menu;
-	private V price;
+	protected K menu;
+	protected V price;
 	
 	
 	
@@ -15,14 +15,11 @@ public class Product<K, V extends Number> {
 	public Product(K menu) {
 		this.menu = menu;
 	}
+	
 	public Product(K menu, V price) {
 		this.menu = menu;
 		this.price = price;
 		
-	}
-	
-	public void productInfo() {
-		System.out.println(menu + " : " + price);
 	}
 	
 	public K getMenu() {
@@ -39,7 +36,7 @@ public class Product<K, V extends Number> {
 	}
 	@Override
 	public String toString() {
-		return menu + " : " + price;
+		return menu + " : " + price + "원";
 	}
 
 	@Override
@@ -55,7 +52,7 @@ public class Product<K, V extends Number> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product other = (Product) obj;
+		Product<?,?> other = (Product<?,?>) obj;
 		return Objects.equals(menu, other.menu);
 	}
 
